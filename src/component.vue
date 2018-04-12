@@ -1,10 +1,16 @@
 <style scoped>
 .container {
-  width: 250px;
+  width: 100%;
+  max-width: 300px;
+  padding: 5px;
   font-family: Open Sans, sans-serif;
+
+  display: flex;
+  flex-direction: column;
 }
 .logo {
-  width: 100%;
+  align-self: center;
+  width: 80%;
 }
 .city-list {
   list-style: none;
@@ -27,11 +33,10 @@
 
 <template>
   <div class="container">
-    <img class="logo" src="./static/af_logo.svg" />
+    <Logo class="logo" />
     <div v-if="loading">
       Loading...
     </div>
-
 
     <ul class="city-list" v-for="skill in skills">
       Jobskills matchar {{skill.name.toLowerCase()}} i nedanstående städer:
@@ -45,6 +50,7 @@
 
 <script>
 import axios from 'axios'
+import Logo from './static/af_logo.svg'
 
 const lookupSkills = body =>
   axios
@@ -52,13 +58,11 @@ const lookupSkills = body =>
       'http://ontologi.arbetsformedlingen.se/ontology/v1/text-to-structure',
       { body }
     )
-    .then(response => console.log('lookupSkills', response) || response)
     .then(response => response.data)
 
 const getCities = skills =>
   axios
     .get('http://s3-eu-west-1.amazonaws.com/seband/skills.json')
-    .then(response => console.log('woop', response) || response)
     .then(response => response.data)
     .then(cities =>
       cities
@@ -74,11 +78,6 @@ const getCities = skills =>
 
 export default {
   el: '#jobskills-widget',
-  methods: {
-    hey($event) {
-      window.alert($event.target.innerHTML + ' says hello')
-    }
-  },
   data: () => ({
     meta: {
       title: ''
@@ -98,8 +97,9 @@ export default {
         this.cities = cities
       })
     })
-
-    console.log(`doc.title: ${document.title}`)
+  },
+  components: {
+    Logo
   }
 }
 </script>
