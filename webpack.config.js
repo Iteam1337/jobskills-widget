@@ -28,19 +28,20 @@ module.exports = {
         use: 'babel-loader'
       }
     ]
-  }
-}
-
-if (process.env.NODE_ENV === 'production') {
-  module.exports.devtool = '#source-map'
-  module.exports.plugins = (module.exports.plugins || []).concat([
+  },
+  plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: '"production"'
+        NODE_ENV: process.env.NODE_ENV
       }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true
     })
-  ])
+  ].concat(
+    process.env.NODE_ENV === 'production'
+      ? [
+          new webpack.LoaderOptionsPlugin({
+            minimize: true
+          })
+        ]
+      : []
+  )
 }
