@@ -4,11 +4,11 @@
 <template>
   <div class="container">
     <Logo class="logo" />
-    <div v-if="loading">
+    <div v-if="loading" class="loading">
       Loading...
     </div>
 
-    <ul v-for="skill in skills">
+    <ul v-for="skill in skills" v-if="!loading">
       <span class="list-header">
         Jobskills matchar <strong>{{matches}}</strong> kandidater för {{skill.name}}
       </span>
@@ -21,7 +21,7 @@
       </li>
     </ul>
 
-    <div v-if="!loading" class="info-area">
+    <div class="info-area">
       <h4>Letar du efter nya medarbetare?</h4>
       <span>
         Använd Jobskills sökverktyg för arbetsgivare för att rekrytera ny personal till ditt företag.

@@ -16,6 +16,14 @@
   align-self: center;
   width: 80%;
 }
+.loading {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
+  height: 100px;
+}
 ul {
   list-style: none;
   margin-top: 10px;
