@@ -5,7 +5,7 @@
   <div class="container">
     <Logo class="logo" />
     <div v-if="loading" class="loading">
-      Loading...
+      Laddar...
     </div>
 
     <ul v-for="skill in skills" v-if="!loading">
