@@ -12,13 +12,16 @@
       <span class="list-header">
         Jobskills matchar <strong>{{matches}}</strong> kandidater för {{skill.name}}
       </span>
-      <li v-for="municipality in municipalities" class="list-item">
+      <a v-for="municipality in municipalities"
+        class="list-item"
+        v-bind:href="getLink(skill, municipality)"
+        target="_blank">
         <span>
           <strong>{{municipality.name}}</strong> {{municipality.matches.length}} kandidater
         </span>
         <br>
         <span>{{municipality.averageYears}} års erfarenhet</span>
-      </li>
+      </a>
     </ul>
 
     <div class="info-area">
@@ -61,6 +64,12 @@ export default {
         this.municipalities = municipalities
       })
     })
+  },
+  methods: {
+    getLink: (skill, municipality) =>
+      `https://search.jobskills.se?q${skill.name}&municipality=${
+        municipality.name
+      }`
   },
   components: {
     Logo
